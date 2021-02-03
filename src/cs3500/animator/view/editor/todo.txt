@@ -1,0 +1,32 @@
+test
+removing first/last keyframe
+editing view: Listeners can be tested by directly calling them, dont need to test the overall view
+test the public stuff in the controller with commands etc
+
+InteractiveViewTest and TestButtonListener
+
+Issues
+
+size of visual view panel still not showing up correctly/scrollbars
+right now I have it to setPrefferedSize
+
+stuff we should document
+you can only edit while it is paused or not started
+If a keyframe already exists at that time (when adding) the user will just
+overwrite the existing keyframe
+Adding a keyframe after the last time is allowed, just adds it like normal (same with adding a
+keyframe
+You can add a keyframe before the first keyframe of a shape, but you can't add a keyframe
+at a negative time
+
+optional stuff to add
+option to save changes after editing (some type of output)
+highlighting functionality - done
+
+
+
+ having a new panel for highlighting shapes that extends visual view panel, calls to super and
+ adds highlighting functionality, using that instead of the visualviewpanel
+ maybe it could have a field for selected shape, and then when we select a shape in the view
+ from a list of shapes, it sets the selected shape in the panel, and highlights that shape
+

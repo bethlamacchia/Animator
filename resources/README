@@ -1,0 +1,97 @@
+The Model:
+
+- Three new methods were added to the model interface, one for removing keyframes, one for adding
+keyframes and one for getting the last tick of the model, whenever the last motion ends. We also
+changed the shape class to improve the functionality and efficiency of our model. In earlier
+assignments we relied much more heavily on our Motion class which we found to provide less
+flexibility to ourselves than a combination of keyframes and motions. The way our shapes work now is
+that they are handed keyframes and use those keyframes to generate motions. Motions can still be
+added individually as opposed to as two keyframes, however, and the same checks on the added motion
+apply.
+
+- To account for these changes we also added two new public methods to IView to add and remove
+individual keyframes. These methods also deal with ensuring that the proper starting and ending time
+of the shape are set when the first or last frame or motion is removed. We also added a private
+method which first sorts the list of keyframes by time, and then, confident that the new list of
+frames is now in chronological order, constructs a list of motions for the shape by iterating over
+those keyframes and using our new MotionFactory to generate the appropriate motions. This private
+method called generateMotions() also ensures no gaps in motions by adding in non-moving move motions
+whenever no change in state is detected.
+
+- We added a MotionFactory which takes in two frames and an integer, finds out what fields changed
+between the frames and constructs motions for all fields that changed (position, color, dimension).
+If none of the fields changed and the integer is less than or equal to 1, nothing happens, but if
+the integer is greater than 1 then an empty move motion is created in that interval. The significance
+of the number 1 is that we decided once there is only one remaining keyframe, the shape will no
+longer have any associated motions and will not be visible until more keyframes or motions are added.
+
+The Controller:
+
+- The main change to our controller was adding the ButtonListener class provided to us on the OOD
+website "https://course.ccs.neu.edu/cs3500" lecture notes. In the controller we instantiate a
+ButtonListener object which we initialize with a map of strings to anonymous Runnable function
+objects that are then linked in the view to the appropriate callbacks in the map.
+
+- In the controller we added three private methods. One was configureButtonListener() which simply
+initializes the commands and the ButtonListener object as described in the previous bullet. The second
+is setTimer() which creates the ActionListener that updates the Timer as well as the Timer itself.
+Inside the timer the model is updated each tick and its data is then sent to the view and displayed.
+Once the counter hits the last tick of the model the model and view are no longer updated until the
+timer is reset, the model's last tick is extended by adding a new frame, or the "loop" option is
+selected meaning that once the counter reaches the last tick it resets. The third private method is
+the getDrawCommands() method which return the map of shape types to DrawCommands which are then passed
+to the view and serve the purpose of supplying methods to draw the shapes.
+
+- In the main run() method in the controller we got rid of the main loop as well as some unnecessary
+casting. Now we get the bounds from the model, pass them to the view object, generate the list of
+drawable commands by calling the private generateDrawCommands() method, set the commands and
+ignoring any UnsupportedOperationException that may be received and then, only if the view is an
+instance of the VisualView we start the timer allowing the animation to run, otherwise we set the
+shapes of the view and display the output.
+
+The View:
+
+- No changes were made to our exiting three views, but we did add the new required EditorView class
+to  our project,
+which is a view in which the user can start, stop, restart the animation, enable or disable looping,
+ add and remove shapes to the animation and add frames and remove frames from preexisting shapes.
+ The EditorView is made up of many smaller panels, each containing buttons with the same general
+ purpose, such as the playPanel containing the start, play, pause and restart buttons.
+
+- How to use it:
+
+  Using our Editor view is simple and intuitive. The top portion of the screen is where the animation
+  / VisualViewPanel will actually be displayed. The size of this depends on the passed in canvas size
+  in the text file. When the program is first started, the only way to get the animation to display
+  is pressing the start button. At that point the animation can be paused and resumed or restarted.
+  The enable looping and disable looping allow the animation to either go back to the first frame and
+  restart once the last tick is hit when enabled or stay at the last tick when disabled. Under
+  change animation speed panel there are buttons to increase or decrease speed. Once start is pressed
+  the current speed is displayed on a JLabel and pressing the increase or decrease speed button will
+  dynamically increase or decrease the tick speed as well as the number displayed.
+
+  Under the add new shape panel there is a drop down with supported shape types and a text box for
+  entering the name of the new shape. Pressing the add shape button to the right of these components
+  will trigger a callback that allows the controller to receive the desired shape type and name and
+  add it to the model. If the shape already exists in the model a popup error message is displayed.
+
+  The bottom panel is the edit existing shapes panel. There shapes can be removed, and frames can
+  be added to and removed from shapes. It also gives users the option to auto-generate a frame as it
+  would currently appear at that time. On the top left of this bottom panel is a drop down titled
+  "Current shapes:". Selecting an item in this dropdown will set it as the selected shape in the view.
+  This results in the drop down titled "Frames for selected shape:" being filled with the string
+  representation of all of that selected shape's frames. If remove frame is pressed the selected
+  frame is removed from the selected shape. If remove shape is pressed the selected shape is removed
+  from the animation and the drop down. In order to add a frame one of two things must happen. First
+  a shape must be selected in the drop down then a time must be entered in the text box titled
+  "Frame time for selected shape". The user can then auto generate the frame using the Auto-generate
+  frame at time button or input the values manually for the new frame. The new frame is then added
+  when the user clicks the "Add frame" button.
+
+  **Note: A shape from the drop down cannot be selected while the animation is being played.
+  When adding a keyframe, if a keyframe already exists at that time for that shape it will be
+  replaced  by the new  keyframe.
+  The user is allowed to add keyframes before the first keyframe or after the last keyframe
+  (as long as it is not being added at a negative time). This will make the shape appear or
+  disappear (respectively) corresponding to the time of the new keyframe being added.
+

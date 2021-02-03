@@ -1,0 +1,8 @@
+canvas 0 0 400 400
+
+# ellipse drawn on top of rectangle
+shape O2 ellipse 2
+shape O1 rectangle 1
+
+motion O1 1 0 100 200 200 255 0 0   100 400 100 200 200 255 0 0
+motion O2 1 400 100 200 200 0 255 0   100 0 100 200 200 0 255 0

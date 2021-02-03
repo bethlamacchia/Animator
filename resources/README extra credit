@@ -1,0 +1,100 @@
+Extra credit modifications (all 3 completed)
+
+level 1: scrubbing
+Added a slider bar and a panel for it in the editor view
+Added a method that configures the slider by setting its max, tick spacing/labels,
+and adding the given change listener
+In the controller, call the method that configures the slider in the controller constructor
+(along with where the button listener is configured), passing it the model's last tick
+and a SliderChangeListener
+Added a private SliderChangeListener class in the controller that implements ChangeListener
+This is where I put the slider functionality - updating the view to the tick of the slider,
+stopping the timer while the slider is moving, and starting it again once the user is done sliding
+Also added a method for setting the tick of the slider to the view: the timer in the controller
+calls this method each tick so that the slider keeps pace with the time of the animation
+The timer will pause while the slider is adjusting. After the user is done sliding they can press
+play to play it from the current state
+
+
+
+level 2: Rotation
+
+Frames:
+Added a new constructor in frames that includes a heading, in old constructor
+just default heading to 0
+Added a method to get the heading of a frame
+
+Motion/Rotation:
+Added a Rotation class that extends AMotion
+Takes in a heading1 and heading2, can tween between them for a given tick
+Wrote the toSVG method for a rotation in the Rotation class
+Wrote overlaps, isCompatibleWith, and apply accordingly for a rotation
+
+FileReader/Builder:
+Modified the filereader and builder to add a new method to read rotations (readRotate), specified by
+ the word "rotate" rather than "motion" - has all of the same fields as a motion but two extra values
+for start heading and end heading
+Modified addMotion to take in heading values
+AddKeyFrame takes in a heading value
+All old files still work - if there is no value for heading specified, it is assumed to be 0 when
+adding a motion or a keyframe, so nothing is affected
+
+Motion Factory:
+Now adds a rotation based on heading values (if applicable)
+
+Builder in model:
+AddKeyFrame and AddMotion now take in a heading
+
+Model:
+Added heading parameter when adding motions/keyframes
+
+Shape:
+Methods for setting/getting headings
+Added a field for a heading
+Kept old constructor, which defaults the heading to 0
+Added a new constructor where the heading can be specified
+Added heading parameters to appropriate methods
+In ShapeFactory, default heading to 0
+
+demo files:
+onlyrotate.txt
+rotateplus.txt
+svgrotate. txt and rotate.svg
+
+RotationTest in test folder has all the tests for rotation functionality/svg rotation output
+
+
+level 3: layers (0 is the bottom layer)
+
+Reader: when declaring a shape, if there is another value after the shape name and type,
+it is initialized as the layer. If no layer is specified, layer is defaulted to 0.
+
+Shape: methods to get and set layer value
+
+Model:
+List of Map of shapes for keeping track of layers (place in the list) and the shapes in that layer
+Added methods for adding a layer, removing a layer (removes all shapes in the layer),
+reordering two layers, changing the layer of an individual shape and adding a shape to a specific
+layer.
+
+View:
+Added a comparator to compare shapes by comparing their layer. Sorts the list of shapes by
+layer before drawing them, so they are drawn in order with 0 assumed to be the bottom layer
+and respective layers drawn on top of previous layers. Added a method called updateLayerInterface()
+to the view which allows the controller to pass in a list of the maps of shapes for each layer to
+the view which the view then uses to populate the drop downs and text fields that make the user
+interaction happen.
+
+Interaction:
+
+- when the user adds a shape they can optionally add the layer
+- when the user selects a shape from the remove a shape panel they can edit its layer by typing in
+a new layer to the text field and clicking the change layer button
+- the user can swap the shapes in two layers by typing the name of the one of the layers in the
+"Layer 1:" text box and the other in the "Layer 2:" text box and then pressing the swap button.
+
+demo files:
+3layertest: 3 non-empty layers that overlap
+2layertest: 2 non-empty layers that overlap
+
+LayersTest in test folder has all of the tests for layer functionality/method testing

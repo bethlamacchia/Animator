@@ -1,0 +1,21 @@
+<svg viewBox="200 70 360 360" version="1.1" xmlns="http://www.w3.org/2000/svg">
+<rect id="R" x="100.0" y="130.0" width="50.0" height="100.0" fill="rgb(255,255,255)" >
+<set id="R" attributeName="visibility" attributeType="xml" begin="0" duration="0" to="hidden" >
+</set>
+<set id="R" attributeName="visibility" attributeType="xml" begin="0" to="visible" >
+</set>
+<animate attributeType="xml" begin="0.10" dur="0.90" attributeName="fill" from="rgb(255,0,255)" to="rgb(255,0,0)" fill="freeze"/>
+<animateTransform attributeType="xml" type="rotate" begin="0.10" dur="0.90" attributeName="transform" from="0 125 180" to="180 125 180" fill="freeze"/>
+<animate attributeType="xml" begin="5.00" dur="0.50" attributeName="fill" from="rgb(255,255,0)" to="rgb(255,0,0)" fill="freeze"/>
+<animate attributeType="xml" begin="10.00" dur="2.00" attributeName="x" from="200.0" to="400.0" fill="freeze"/>
+<animate attributeType="xml" begin="10.00" dur="2.00" attributeName="y" from="200.0" to="200.0" fill="freeze"/>
+<animate attributeType="xml" begin="10.00" dur="2.00" attributeName="width" from="25.0" to="100.0" fill="freeze"/>
+<animate attributeType="xml" begin="10.00" dur="2.00" attributeName="height" from="100.0" to="200.0" fill="freeze"/>
+<animate attributeType="xml" begin="7.00" dur="3.00" attributeName="x" from="300.0" to="200.0" fill="freeze"/>
+<animate attributeType="xml" begin="7.00" dur="3.00" attributeName="y" from="200.0" to="200.0" fill="freeze"/>
+<animate attributeType="xml" begin="5.50" dur="1.50" attributeName="width" from="50.0" to="25.0" fill="freeze"/>
+<animate attributeType="xml" begin="5.50" dur="1.50" attributeName="height" from="100.0" to="100.0" fill="freeze"/>
+<animate attributeType="xml" begin="1.00" dur="4.00" attributeName="fill" from="rgb(255,0,0)" to="rgb(255,255,0)" fill="freeze"/>
+<animateTransform attributeType="xml" type="rotate" begin="1.00" dur="4.00" attributeName="transform" from="180 125 180" to="0 125 180" fill="freeze"/>
+</rect>
+</svg>
